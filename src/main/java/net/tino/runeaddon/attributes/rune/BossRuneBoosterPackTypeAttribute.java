@@ -19,6 +19,7 @@ public class BossRuneBoosterPackTypeAttribute extends StringAttribute {
 
     @Override
     public String getValue(ItemStack itemStack) {
+        if (!net.tino.runeaddon.ModPresence.serverHasRuneAddon()) return null;
         if (!(itemStack.getItem() instanceof BossRuneItem)) return null;
         if (!itemStack.hasTag() || !itemStack.getTag().contains("Items", 9)) return null;
         ListTag items = itemStack.getTag().getList("Items", 10);
