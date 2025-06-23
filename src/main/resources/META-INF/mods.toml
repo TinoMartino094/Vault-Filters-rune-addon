@@ -35,13 +35,8 @@ Addon for Vault Filters: Adds boss rune filter attributes.
 [[dependencies.vaultfiltersruneaddon]]
     modId="vaultfilters"
     mandatory=true
-    versionRange="[1.21.1,)"
+    versionRange="[1.21.0,)"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.vaultfiltersruneaddon]]
-    modId="vault-hunters-official-mod"
-    mandatory=true
-    versionRange="[*]"
-    ordering="AFTER"
-    side="BOTH"
+
