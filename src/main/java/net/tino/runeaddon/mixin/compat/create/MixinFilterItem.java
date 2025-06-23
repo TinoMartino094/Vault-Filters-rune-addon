@@ -50,10 +50,17 @@ public class MixinFilterItem {
         // Check if the filter has your rune attributes (stored as StringAttribute)
         ListTag attributes = tag.getList("MatchedAttributes", CompoundTag.TAG_COMPOUND);
         for (Tag attribute : attributes) {
-            if (attribute instanceof CompoundTag compound && ItemAttribute.fromNBT(compound) instanceof StringAttribute) {
-                player.displayClientMessage(msg, false);
-                cir.setReturnValue(InteractionResultHolder.pass(heldItem));
-                break;
+            if (attribute instanceof CompoundTag compound) {
+                ItemAttribute attr = ItemAttribute.fromNBT(compound);
+                if (attr instanceof BossRuneModifierAttribute
+                        || attr instanceof BossRuneGivesItemAttribute
+                        || attr instanceof BossRuneGearRarityAttribute
+                        || attr instanceof BossRuneBoosterPackTypeAttribute
+                        || attr instanceof BossRuneInscriptionTypeAttribute) {
+                    player.displayClientMessage(msg, false);
+                    cir.setReturnValue(InteractionResultHolder.pass(heldItem));
+                    break;
+                }
             }
         }
     }
