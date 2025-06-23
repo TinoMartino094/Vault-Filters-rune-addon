@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.tino.runeaddon.mixin.compat.create",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinAttributeFilterScreen",
+    "MixinFilterScreen",
+    "MixinFilterItem"
+  ],
+  "refmap": "mixins.vaultfiltersruneaddon.refmap.json"
+}
