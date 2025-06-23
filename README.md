@@ -41,3 +41,8 @@ MIT License. See [LICENSE](LICENSE) for details.
 ## Support
 
 For bug reports or suggestions, please open an [issue](https://github.com/TinoMartino094/Vault-Filters-rune-addon/issues) or contact me on GitHub.****
+
+**Code Quality Disclaimer:**  
+This project was written quickly to fill a feature gap. Please pardon any "creative" solutions or minor messiness in the code!  
+If you find messy code, that's just extra flavor.  
+PRs to clean things up are always welcome!
