@@ -26,6 +26,6 @@ public class MixinAttributeFilterScreen {
             System.out.println("[Rune Addon] Blocking all attributes (server missing addon)");
             return List.of();
         }
-    return instance.listAttributesOf(stack, world);
+        return instance.listAttributesOf(stack, world);
     }
 }
