@@ -16,7 +16,7 @@ An addon for [Vault Filters](https://github.com/Odgug/Vault-Filters) that adds n
 - **Seamless Integration** with Vault Filters UI.
 
 - **Safe Multiplayer Handling**:  
-  If the server does not have this addon, or has the wrong version, all addon features are disabled on the client, and users are clearly notified. This prevents crashes and exploits.
+  If the server does not have this addon, or has the wrong version, all addon features are disabled on the client, and users are clearly notified. This prevents crashes.
 
 ---
 
