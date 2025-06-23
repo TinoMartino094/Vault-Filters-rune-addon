@@ -3,6 +3,7 @@ package net.tino.runeaddon.attributes.rune;
 import iskallia.vault.item.BossRuneItem;
 import net.joseph.vaultfilters.attributes.abstracts.StringAttribute;
 import net.minecraft.world.item.ItemStack;
+import net.tino.runeaddon.ModPresence;
 
 public class BossRuneModifierAttribute extends StringAttribute {
     public BossRuneModifierAttribute(String value) {
@@ -11,6 +12,7 @@ public class BossRuneModifierAttribute extends StringAttribute {
 
     @Override
     public String getValue(ItemStack itemStack) {
+        if (!net.tino.runeaddon.ModPresence.serverHasRuneAddon()) return null;
         if (!(itemStack.getItem() instanceof BossRuneItem)) {
             return null;
         }
