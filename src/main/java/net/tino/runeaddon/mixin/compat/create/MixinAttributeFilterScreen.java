@@ -22,8 +22,15 @@ public class MixinAttributeFilterScreen {
         remap = false
     )
     public List<ItemAttribute> runeAddon$listAttributes(ItemAttribute instance, ItemStack stack, Level world) {
-        if (!ModPresence.serverHasRuneAddon() && instance instanceof net.joseph.vaultfilters.attributes.abstracts.StringAttribute) {
-            return List.of();
+        if (!ModPresence.serverHasRuneAddon()) {
+            // Filter out all rune addon attributes if server presence is missing
+            return instance.listAttributesOf(stack, world).stream()
+                .filter(attr -> !(attr instanceof BossRuneModifierAttribute
+                               || attr instanceof BossRuneGivesItemAttribute
+                               || attr instanceof BossRuneGearRarityAttribute
+                               || attr instanceof BossRuneBoosterPackTypeAttribute
+                               || attr instanceof BossRuneInscriptionTypeAttribute))
+                .toList();
         }
         return instance.listAttributesOf(stack, world);
     }
