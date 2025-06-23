@@ -8,6 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.tino.runeaddon.ModPresence;
+
 
 public class BossRuneGivesItemAttribute extends StringAttribute {
     public BossRuneGivesItemAttribute(String value) {
@@ -16,6 +18,7 @@ public class BossRuneGivesItemAttribute extends StringAttribute {
 
     @Override
     public String getValue(ItemStack itemStack) {
+        if (!net.tino.runeaddon.ModPresence.serverHasRuneAddon()) return null;
         if (!(itemStack.getItem() instanceof BossRuneItem)) {
             return null;
         }
