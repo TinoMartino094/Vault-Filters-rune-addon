@@ -5,6 +5,7 @@ import net.joseph.vaultfilters.attributes.abstracts.StringAttribute;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
+import net.tino.runeaddon.ModPresence;
 
 public class BossRuneInscriptionTypeAttribute extends StringAttribute {
     public BossRuneInscriptionTypeAttribute(String value) {
@@ -14,6 +15,7 @@ public class BossRuneInscriptionTypeAttribute extends StringAttribute {
     @Override
     public String getValue(ItemStack itemStack) {
         if (!(itemStack.getItem() instanceof BossRuneItem)) return null;
+        if (!net.tino.runeaddon.ModPresence.serverHasRuneAddon()) return null;
         if (!itemStack.hasTag() || !itemStack.getTag().contains("Items", 9)) return null;
         ListTag items = itemStack.getTag().getList("Items", 10);
         if (items.isEmpty()) return null;
