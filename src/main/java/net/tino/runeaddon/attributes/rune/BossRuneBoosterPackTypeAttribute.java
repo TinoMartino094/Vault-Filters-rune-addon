@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.world.item.Item;
+import net.tino.runeaddon.ModPresence;
+
 
 public class BossRuneBoosterPackTypeAttribute extends StringAttribute {
     public BossRuneBoosterPackTypeAttribute(String value) {
