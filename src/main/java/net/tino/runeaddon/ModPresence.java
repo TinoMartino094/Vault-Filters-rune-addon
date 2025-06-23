@@ -27,26 +27,25 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class ModPresence {
     private static final int RECEIVE_MESSAGE_TIMEOUT = 20 * 30; // 20 ticks per second, 30 seconds
-    private static final Map<UUID, Integer> SERVER_LOGIN_TICKS = new HashMap<>();
-    private static final Set<UUID> PLAYERS_WITH_RUNE_ADDON = new HashSet<>();
-    private static boolean serverHasRuneAddon = false;
-    private static int clientLoginTicks = 0;
-    private static final String MOD_VERSION = "1.21.1-addon-1";
-    private static final String MOD_ID = "vaultfiltersruneaddon";
-    private static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(MOD_ID, "main"),
+    public static final Map<UUID, Integer> SERVER_LOGIN_TICKS = new HashMap<>();
+    public static final Set<UUID> PLAYERS_WITH_RUNE_ADDON = new HashSet<>();
+    public static boolean serverHasRuneAddon = false;
+    public static int clientLoginTicks = 0;
+    public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
+            new ResourceLocation(VaultFiltersRuneAddon.MOD_ID, "main"),
             () -> "1",
             o -> true,
             o -> true
     );
 
     public static void init() {
-        CHANNEL.messageBuilder(Message.class, 0)
-                .encoder(Message::encode)
-                .decoder(Message::decode)
-                .consumer(Message::handle)
+        CHANNEL.messageBuilder(ModPresence.Message.class, 0)
+                .encoder(ModPresence.Message::encoder)
+                .decoder(ModPresence.Message::decoder)
+                .consumer(ModPresence.Message::consumer)
                 .add();
     }
 
@@ -64,7 +63,7 @@ public class ModPresence {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onClientConnect(ClientPlayerNetworkEvent.LoggedInEvent event) {
-        CHANNEL.sendToServer(new Message(MOD_VERSION));
+        CHANNEL.sendToServer(new ModPresence.Message(VaultFiltersRuneAddon.MOD_VERSION));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -88,14 +87,16 @@ public class ModPresence {
         clientLoginTicks = 0;
     }
 
+    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getPlayer() instanceof ServerPlayer player) {
-            CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new Message(MOD_VERSION));
+            CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ModPresence.Message(VaultFiltersRuneAddon.MOD_VERSION));
             SERVER_LOGIN_TICKS.put(player.getUUID(), 0);
         }
     }
 
+    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onServerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)) return;
@@ -105,12 +106,13 @@ public class ModPresence {
         if (ticks < RECEIVE_MESSAGE_TIMEOUT) {
             SERVER_LOGIN_TICKS.put(uuid, ticks + 1);
         } else {
-            Component msg = new TextComponent("This server has Vault Filters Rune Addon installed, but your client does not. Please install version " + MOD_VERSION + " for custom rune filter features.").withStyle(ChatFormatting.RED);
+            Component msg = new TextComponent("This server has Vault Filters Rune Addon installed, but your client does not. Please install version " + VaultFiltersRuneAddon.MOD_VERSION + " for custom rune filter features.").withStyle(ChatFormatting.RED);
             player.displayClientMessage(msg, false);
             SERVER_LOGIN_TICKS.remove(uuid);
         }
     }
 
+    @OnlyIn(Dist.DEDICATED_SERVER)
     @SubscribeEvent
     public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getPlayer() instanceof ServerPlayer player) {
@@ -121,19 +123,27 @@ public class ModPresence {
 
     public static class Message {
         protected final String version;
-        public Message(String version) { this.version = version; }
 
-        public void encode(FriendlyByteBuf buf) { buf.writeUtf(this.version); }
-        public static Message decode(FriendlyByteBuf buf) { return new Message(buf.readUtf()); }
+        public Message(String version) {
+            this.version = version;
+        }
 
-        public void handle(Supplier<NetworkEvent.Context> ctx) {
+        public void encoder(FriendlyByteBuf buf) {
+            buf.writeUtf(this.version);
+        }
+
+        public static Message decoder(FriendlyByteBuf buf) {
+            return new Message(buf.readUtf());
+        }
+
+        public void consumer(Supplier<NetworkEvent.Context> ctx) {
             NetworkEvent.Context context = ctx.get();
             LogicalSide side = context.getDirection().getReceptionSide();
 
             DistExecutor.unsafeRunForDist(
                 () -> () -> {
                     if (side.isClient()) {
-                        serverHasRuneAddon = this.version.equals(MOD_VERSION);
+                        serverHasRuneAddon = this.version.equals(VaultFiltersRuneAddon.MOD_VERSION);
                         clientLoginTicks = RECEIVE_MESSAGE_TIMEOUT;
                     }
                     return null;
@@ -143,10 +153,10 @@ public class ModPresence {
                         ServerPlayer player = context.getSender();
                         if (player != null) {
                             UUID uuid = player.getUUID();
-                            if (this.version.equals(MOD_VERSION)) {
+                            if (this.version.equals(VaultFiltersRuneAddon.MOD_VERSION)) {
                                 PLAYERS_WITH_RUNE_ADDON.add(uuid);
                             } else {
-                                Component msg = new TextComponent("Vault Filters Rune Addon version mismatch! Please install version " + MOD_VERSION + " for custom rune filter features.").withStyle(ChatFormatting.RED);
+                                Component msg = new TextComponent("Vault Filters Rune Addon version mismatch! Please install version " + VaultFiltersRuneAddon.MOD_VERSION + " for custom rune filter features.").withStyle(ChatFormatting.RED);
                                 player.displayClientMessage(msg,false);
                             }
                             SERVER_LOGIN_TICKS.remove(uuid);
