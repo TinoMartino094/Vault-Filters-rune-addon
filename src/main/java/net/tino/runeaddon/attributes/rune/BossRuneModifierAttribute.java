@@ -1,4 +1,4 @@
-package net.joseph.vaultfilters.attributes.rune;
+package net.tino.runeaddon.attributes.rune;
 
 import iskallia.vault.item.BossRuneItem;
 import net.joseph.vaultfilters.attributes.abstracts.StringAttribute;
