@@ -5,6 +5,8 @@ import net.joseph.vaultfilters.attributes.abstracts.StringAttribute;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
+import net.tino.runeaddon.ModPresence;
+
 
 public class BossRuneGearRarityAttribute extends StringAttribute {
     public BossRuneGearRarityAttribute(String value) {
