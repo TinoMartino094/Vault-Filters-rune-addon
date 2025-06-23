@@ -1,4 +1,4 @@
-package net.joseph.vaultfilters.attributes.rune;
+package net.tino.runeaddon.attributes.rune;
 
 import iskallia.vault.init.ModConfigs;
 import iskallia.vault.item.BoosterPackItem;
