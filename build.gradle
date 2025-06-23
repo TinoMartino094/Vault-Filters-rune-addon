@@ -20,7 +20,7 @@ archivesBaseName = 'vault-filters-runes-addon'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'parchment', version: '1.18.1-2022.03.06-1.18.2'
+    mappings channel: 'official', version: '1.18.2'
 
     runs {
         client {
