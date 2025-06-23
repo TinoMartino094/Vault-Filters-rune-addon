@@ -20,7 +20,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {
-                vaultfiltersaddon {
+                vaultfiltersruneaddon {
                     source sourceSets.main
                 }
             }
@@ -30,7 +30,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {
-                vaultfiltersaddon {
+                vaultfiltersruneaddon {
                     source sourceSets.main
                 }
             }
@@ -39,9 +39,9 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            args '--mod', 'vaultfiltersaddon', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'vaultfiltersruneaddon', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
-                vaultfiltersaddon {
+                vaultfiltersruneaddon {
                     source sourceSets.main
                 }
             }
@@ -62,14 +62,12 @@ dependencies {
 
     implementation fg.deobf("curse.maven:vault-filters-1.21.1")
     implementation fg.deobf("curse.maven:vault-hunters-official-mod-458203:6477559")
-
-
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "vaultfiltersaddon",
+                "Specification-Title"     : "vaultfiltersruneaddon",
                 "Specification-Vendor"    : "tinomartino094",
                 "Specification-Version"   : version,
                 "Implementation-Title"    : project.name,
