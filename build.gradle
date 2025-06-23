@@ -61,6 +61,8 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.2.9'
 
     implementation fg.deobf("curse.maven:vault-filters-1.21.1")
+    implementation fg.deobf("curse.maven:vault-hunters-official-mod-458203:6477559")
+
 
 }
 
