@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 group = 'net.tino.runeaddon'
-version = '1.21.1-addon-1'
+version = '1.21.1-addon-2'
 archivesBaseName = 'vault-filters-runes-addon'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
