@@ -18,7 +18,10 @@ public class BossRuneGivesItemAttribute extends StringAttribute {
 
     @Override
     public String getValue(ItemStack itemStack) {
-        if (!net.tino.runeaddon.ModPresence.serverHasRuneAddon()) return null;
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
+            if (!net.tino.runeaddon.ModPresence.serverHasRuneAddon())
+                return null;
+        }
         if (!(itemStack.getItem() instanceof BossRuneItem)) {
             return null;
         }
