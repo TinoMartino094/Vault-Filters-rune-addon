@@ -12,7 +12,7 @@ import net.tino.runeaddon.ModPresence;
 @Mod(VaultFiltersRuneAddon.MOD_ID)
 public class VaultFiltersRuneAddon {
     public static final String MOD_ID = "vaultfiltersruneaddon";
-    public static final String MOD_VERSION = "1.21.1-addon-1";
+    public static final String MOD_VERSION = "1.21.1-addon-2";
 
     public VaultFiltersRuneAddon() {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
