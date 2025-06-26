@@ -50,7 +50,10 @@ public class ModPresence {
     }
 
     public static boolean serverHasRuneAddon() {
-        return Minecraft.getInstance().isLocalServer() || serverHasRuneAddon;
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.CLIENT) {
+            return Minecraft.getInstance().isLocalServer() || serverHasRuneAddon;
+        }
+        return true; // Always enabled on the server if the mod is loaded
     }
 
     public static boolean playerHasRuneAddon(UUID uuid) {
